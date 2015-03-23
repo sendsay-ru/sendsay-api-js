@@ -147,7 +147,7 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
       options.redirected = (ref = options.redirected === void 0) != null ? ref : {
         1: ++options.redirected
       };
-      if (options.redirected !== MAX_RECALL_COUNT) {
+      if (options.redirected !== MAX_REDIRECT_COUNT) {
         _redirect = response.REDIRECT;
         return this.call(request, options);
       }

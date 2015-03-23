@@ -91,7 +91,7 @@ do (root = this, factory = (root, API, EventDispatcher, $) ->
           request: request,
           options: options
       options.redirected = options.redirected == undefined ? 1 : ++options.redirected;
-      if options.redirected != MAX_RECALL_COUNT
+      if options.redirected != MAX_REDIRECT_COUNT
         _redirect = response.REDIRECT;
         @call request, options
 
