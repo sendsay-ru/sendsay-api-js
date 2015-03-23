@@ -18,6 +18,9 @@ do (root = this, factory = (root, API, EventDispatcher, $) ->
 
     _instance = null
 
+    setRedirect: (redirect) ->
+      _redirect = redirect
+
     setSession: (session) ->
       _session = session
 

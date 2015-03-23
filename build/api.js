@@ -31,6 +31,10 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
 
     _instance = null;
 
+    API.prototype.setRedirect = function(redirect) {
+      return _redirect = redirect;
+    };
+
     API.prototype.setSession = function(session) {
       return _session = session;
     };
