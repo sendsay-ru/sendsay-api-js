@@ -1,28 +1,32 @@
 <html>
-    <head>
-        <title> Tests </title>
-        <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
-    </head>
-    <body>
-        <div id="mocha"></div>
-        <script src="../node_modules/mocha/mocha.js"></script>
-        <script src="../node_modules/chai/chai.js"></script>
-        <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="../bower_components/sendsay.event-dispatcher/build/event-dispatcher.min.js"></script>
-        <script src="../build/api.js"></script>
-        <script>
-            mocha.ui('bdd'); 
-            mocha.reporter('html');
-            var expect = chai.expect;
-        </script>
-        <script src="api.test.js"></script>
-        <script src="others.test.js"></script>
-        <script>
-            if (window.mochaPhantomJS) {
-                mochaPhantomJS.run(); 
-            } else {
-                mocha.run();
-            }
-        </script>
-    </body>
+
+<head>
+    <title>API tests</title>
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+</head>
+
+<body>
+    <div id="mocha"></div>
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/sendsay.event-dispatcher/build/event-dispatcher.min.js"></script>
+    <script src="../build/api.js"></script>
+    <script>
+        mocha.ui('bdd');
+        mocha.reporter('html');
+        var expect = chai.expect;
+    </script>
+    <script src="calls.test.js"></script>
+    <script src="events.test.js"></script>
+    <script src="others.test.js"></script>
+    <script>
+        if (window.mochaPhantomJS) {
+            mochaPhantomJS.run();
+        } else {
+            mocha.run();
+        }
+    </script>
+</body>
+
 </html>
