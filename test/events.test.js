@@ -83,4 +83,22 @@ describe("API events", function() {
     });
   })
 
+  it("call with ajax error events sequence", function(done) {
+    API.setURL('htps://api.sendsay.ru');
+    handler = function() {
+      handler.callCount = handler.callCount ? handler.callCount + 1 : 1;
+    }
+    API.on('ajax:start', handler);
+    API.on('ajax:error', function() {
+      handler();
+      if (handler.callCount == 20) {
+        done();
+      }
+    });
+    API.on('ajax:complete', handler);
+    API.call({
+      action: 'ping'
+    });
+  })
+
 });

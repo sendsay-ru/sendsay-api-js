@@ -131,7 +131,10 @@ do (root = this, factory = (root, API, EventDispatcher, $) ->
           xhr: xhr,
           request: request,
           options: options
-      options.failed = options.failed == undefined ? 1 : ++options.failed;
+      if options.failed == undefined
+        options.failed = 1
+      else 
+        options.failed += 1
       @call request, options if options.failed != MAX_RECALL_COUNT
 
     handleAJAXRequestCancel: (xhr, request, options) ->

@@ -202,7 +202,6 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
     };
 
     API.prototype.handleAJAXRequestError = function(xhr, request, options) {
-      var ref;
       if (!options.silent) {
         this.trigger('ajax:error', {
           xhr: xhr,
@@ -210,9 +209,11 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
           options: options
         });
       }
-      options.failed = (ref = options.failed === void 0) != null ? ref : {
-        1: ++options.failed
-      };
+      if (options.failed === void 0) {
+        options.failed = 1;
+      } else {
+        options.failed += 1;
+      }
       if (options.failed !== MAX_RECALL_COUNT) {
         return this.call(request, options);
       }
