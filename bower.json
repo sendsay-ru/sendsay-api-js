@@ -1,0 +1,20 @@
+{
+  "name": "sendsay.api",
+  "version": "0.0.1",
+  "homepage": "https://github.com/sendsay-ru/api",
+  "authors": [
+    "zoux"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery": "~2.1.3",
+    "sendsay.event-dispatcher": "*"
+  }
+}
