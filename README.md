@@ -2,6 +2,46 @@
 
 JS library for manipulations with Sendsay API
 
+
+## Methods
+
+### call(request, options)
+Initiate API request with `request` parameters and specific `options`
+
+#### request
+Request parameters relevant documentation (https://sendsay.ru/api/api.html)
+
+#### options
+
+##### `silent:false`
+If you pass `silent:false` into the options hash, API call request with triggering request events
+If you pass `silent:true` into the options hash, API call request without triggering request events
+##### `success:callback`
+Called upon successful API request. The callback has the form `success(response, request, options)`.
+##### `error:callback`
+Called upon a error from API. The callback has the form `error(response, request, options)`.
+##### `context:this`
+Context for `success` and `error' callbacks.
+
+### setRedirect(redirect)
+Set `redirect` as API redirect
+
+#### redirect
+API redirect
+
+### setSession(session)
+Set `session` as API session
+
+#### session
+API session
+
+### setURL(url)
+Set `url` as API url
+
+#### url
+API url
+
+
 ## Examples
 
 ### Call action
