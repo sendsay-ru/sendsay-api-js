@@ -42,14 +42,60 @@ Set `url` as API url
 API url
 
 ## Events
-### `ajax:start`
-### `ajax:success`
-### `api:redirect`
-### `api:error`
-### `api:success`
-### `ajax:error`
-### `ajax:cancel`
-### `ajax:complete`
+### ajax:start
+###### Event object properties:
+* `xhr` - xhr object of API request
+* `request` - parameters of API request
+* `options` - options of API request
+
+----
+### ajax:success
+###### Event object properties:
+* `reponse` - response of API request
+* `request` - parameters of API request
+* `options` - options of API request
+
+----
+### api:redirect
+###### Event object properties:
+* `reponse` - response of API request
+* `request` - parameters of API request
+* `options` - options of API request
+
+----
+### api:error
+###### Event object properties:
+* `reponse` - response of API request
+* `request` - parameters of API request
+* `options` - options of API request
+
+----
+### api:success
+###### Event object properties:
+* `reponse` - response of API request
+* `request` - parameters of API request
+* `options` - options of API request
+
+----
+### ajax:error
+###### Event object properties:
+* `xhr` - xhr object of API request
+* `request` - parameters of API request
+* `options` - options of API request
+
+----
+### ajax:cancel
+###### Event object properties:
+* `xhr` - xhr object of API request
+* `request` - parameters of API request
+* `options` - options of API request
+
+----
+### ajax:complete
+###### Event object properties:
+* `xhr` - xhr object of API request
+* `request` - parameters of API request
+* `options` - options of API request
 
 ## Examples
 
