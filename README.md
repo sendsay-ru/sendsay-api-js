@@ -5,41 +5,33 @@ JS library for manipulations with Sendsay API
 
 ## Methods
 
-### call(request, options)
+#### call
 Initiate API request with `request` parameters and specific `options`
+###### Parameters
+* `request` - request parameters ([API Documentaion](https://sendsay.ru/api/api.html))
+* `options` - request options 
+  * `silent` - on/off triggering events
+  * `success` - callback function that called when request has been finished without API errors
+  * `error` -  callback function that called when request has been finished with API errors
+  * `context` - context for callback functions
 
-#### request
-Request parameters relevant documentation (https://sendsay.ru/api/api.html)
-
-#### options
-
-##### `silent:false`
-If you pass `silent:false` into the options hash, API call request with triggering request events
-If you pass `silent:true` into the options hash, API call request without triggering request events
-##### `success:callback`
-Called upon successful API request. The callback has the form `success(response, request, options)`.
-##### `error:callback`
-Called upon a error from API. The callback has the form `error(response, request, options)`.
-##### `context:this`
-Context for `success` and `error' callbacks.
-
-### setRedirect(redirect)
+----
+#### setRedirect
 Set `redirect` as API redirect
+###### Parameters
+* `redirect` - API redirect
 
-#### redirect
-API redirect
-
-### setSession(session)
+----
+#### setSession
 Set `session` as API session
+###### Parameters
+* `session` - API session
 
-#### session
-API session
-
-### setURL(url)
+----
+#### setURL
 Set `url` as API url
-
-#### url
-API url
+###### Parameters
+* `url` - API url
 
 ## Events
 ### ajax:start
@@ -51,28 +43,28 @@ API url
 ----
 ### ajax:success
 ###### Event object properties:
-* `reponse` - response of API request
+* `response` - response of API request
 * `request` - parameters of API request
 * `options` - options of API request
 
 ----
 ### api:redirect
 ###### Event object properties:
-* `reponse` - response of API request
+* `response` - response of API request
 * `request` - parameters of API request
 * `options` - options of API request
 
 ----
 ### api:error
 ###### Event object properties:
-* `reponse` - response of API request
+* `response` - response of API request
 * `request` - parameters of API request
 * `options` - options of API request
 
 ----
 ### api:success
 ###### Event object properties:
-* `reponse` - response of API request
+* `response` - response of API request
 * `request` - parameters of API request
 * `options` - options of API request
 
