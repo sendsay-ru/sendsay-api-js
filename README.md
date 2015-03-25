@@ -41,6 +41,15 @@ Set `url` as API url
 #### url
 API url
 
+## Events
+### `ajax:start`
+### `ajax:success`
+### `api:redirect`
+### `api:error`
+### `api:success`
+### `ajax:error`
+### `ajax:cancel`
+### `ajax:complete`
 
 ## Examples
 
