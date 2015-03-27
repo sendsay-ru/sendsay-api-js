@@ -155,3 +155,20 @@ api.on('api:success api:error', function(event) {
   console.log("handle end of action");
 });
 ```
+
+### Simple mixin
+
+```js
+var api = new API();
+api.mixin('self.ping', function(request, options) {
+  request.action = 'ping';
+  api.call(request, options);
+});
+api.call({
+  'action': 'self.ping'
+}, {
+  success: function(response) {
+    done();
+  }
+})
+```
