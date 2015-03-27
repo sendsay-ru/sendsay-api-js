@@ -6,7 +6,7 @@ JS library for manipulations with Sendsay API
 ## Methods
 
 #### call
-Initiate API request with `request` parameters and specific `options`
+Initiates API request with `request` parameters and specific `options`
 ###### Parameters
 * `request` - request parameters ([API Documentaion](https://sendsay.ru/api/api.html))
 * `options` - request options 
@@ -14,6 +14,13 @@ Initiate API request with `request` parameters and specific `options`
   * `success` - callback function that called when request has been finished without API errors
   * `error` -  callback function that called when request has been finished with API errors
   * `context` - context for callback functions
+
+----
+#### mixin
+Adds mixin for API action
+###### Parameters
+* `name` - name of mixin
+* `handler` - handler that called when mixin action is called
 
 ----
 #### setRedirect
