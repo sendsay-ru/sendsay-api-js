@@ -1,16 +1,9 @@
 describe("API calls", function() {
   this.timeout(10000);
 
-  beforeEach(function() {
-    API.setURL('https://api.sendsay.ru');
-    API.setSession('');
-    API.off('ajax:start ajax:success api:redirect api:error api:success ajax:error ajax:cancel ajax:complete');
-  });
-
-  var handler;
-
   it("call request without auth", function(done) {
-    API.call({
+    var api_instance = new API();
+    api_instance.call({
       "action": "ping"
     }, {
       success: function() {
@@ -20,13 +13,14 @@ describe("API calls", function() {
   })
 
   it("call request with auth", function(done) {
-    API.call({
+    var api_instance = new API();
+    api_instance.call({
       "action": "login",
       "login": "demo",
       "passwd": "demo"
     }, {
       success: function() {
-        API.call({
+        api_instance.call({
           "action": "ping"
         }, {
           success: function() {
@@ -38,13 +32,14 @@ describe("API calls", function() {
   });
 
   it("call batch request", function(done) {
-    API.call({
+    var api_instance = new API();
+    api_instance.call({
       "action": "login",
       "login": "demo",
       "passwd": "demo"
     }, {
       success: function() {
-        API.call({
+        api_instance.call({
           "action": "batch",
           "do": [{
             "action": "pong"
@@ -61,13 +56,14 @@ describe("API calls", function() {
   });
 
   it("call batch request with error", function(done) {
-    API.call({
+    var api_instance = new API();
+    api_instance.call({
       "action": "login",
       "login": "demo",
       "passwd": "demo"
     }, {
       success: function() {
-        API.call({
+        api_instance.call({
           "action": "batch",
           "do": [{
             "action": "ping"

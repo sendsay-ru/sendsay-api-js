@@ -12,38 +12,33 @@ do (root = this, factory = (root, API, EventDispatcher, $) ->
     MAX_RECALL_COUNT = 10
     API_VERSION = 100
 
-    _url = 'https://api.sendsay.ru'
-    _session = ''
-    _redirect = ''
-    _mixins = null
-    _instance = null
+    _url: 'https://api.sendsay.ru'
+    _session: ''
+    _redirect: ''
+    _mixins: null
 
     setRedirect: (redirect) ->
-      _redirect = redirect
+      @_redirect = redirect
 
     setSession: (session) ->
-      _session = session
+      @_session = session
 
     setURL: (url) ->
-      _url = url
+      @_url = url
 
     mixin: (action, handler) ->
-      mixins = _mixins || (_mixins = {})
+      mixins = @_mixins || (@_mixins = {})
       mixins[action] = handler
 
     constructor: (options = {}) ->
-      if _instance
-        return _instance
-      else
-        _instance = this
       super
-      _url = options.url if options.url
-      _session = options.session if options.session
-      _redirect = options.redirect if options.redirect
+      @_url = options.url if options.url
+      @_session = options.session if options.session
+      @_redirect = options.redirect if options.redirect
 
     call: (request, options = {}) ->
       if @hasMixin request.action
-        _mixins[request.action] request, options
+        @_mixins[request.action] request, options
       else
         $.ajax @getAJAXSettings request, options
           .always (response, status, xhr) ->
@@ -53,11 +48,11 @@ do (root = this, factory = (root, API, EventDispatcher, $) ->
               when 'canceled' then @handleAJAXRequestCancel response, request, options
 
     hasMixin: (action) ->
-      mixins = _mixins || (_mixins = {})
+      mixins = @_mixins || (@_mixins = {})
       mixins[action]
 
     getAJAXSettings: (request, options) ->
-      'url': _url + _redirect,
+      'url': @_url + @_redirect,
       'data': @getAJAXData request, options
       'context': this,
       'dataType': 'jsonp',
@@ -74,8 +69,8 @@ do (root = this, factory = (root, API, EventDispatcher, $) ->
       'request.id': (new Date()).getTime()
 
     getAJAXRequestString: (request, options) ->
-      if _session && ACTIONS_WITHOUT_SESSION.indexOf request.action == -1
-        request.session = _session;
+      if @_session && ACTIONS_WITHOUT_SESSION.indexOf request.action == -1
+        request.session = @_session;
       JSON.stringify(request)
 
     handleAJAXRequestStart: (xhr, request, options) ->
@@ -106,7 +101,7 @@ do (root = this, factory = (root, API, EventDispatcher, $) ->
           options: options
       options.redirected = options.redirected == undefined ? 1 : ++options.redirected;
       if options.redirected != MAX_REDIRECT_COUNT
-        _redirect = response.REDIRECT;
+        @_redirect = response.REDIRECT;
         @call request, options
 
     responseHasError: (response, request) ->
@@ -132,7 +127,7 @@ do (root = this, factory = (root, API, EventDispatcher, $) ->
           response: response,
           request: request,
           options: options
-      _session = response.session if request.action == 'login'
+      @_session = response.session if request.action == 'login'
       if options.success
         options.success.call options.context || this, response, request, options
 
@@ -162,7 +157,7 @@ do (root = this, factory = (root, API, EventDispatcher, $) ->
           request: request,
           options: options
 
-  return new API
+  return API
 
 ) ->
 

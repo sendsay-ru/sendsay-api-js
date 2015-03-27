@@ -1,20 +1,18 @@
 describe("API mixins", function() {
   this.timeout(10000);
 
+  var api_instance;
+
   beforeEach(function() {
-    API.setURL('https://api.sendsay.ru');
-    API.setSession('');
-    API.off('ajax:start ajax:success api:redirect api:error api:success ajax:error ajax:cancel ajax:complete');
   });
 
-  var handler;
-
   it("add and call mixin", function(done) {
-    API.mixin('self.ping', function(request, options) {
+    var api_instance = new API();
+    api_instance.mixin('self.ping', function(request, options) {
       request.action = 'ping';
-      API.call(request, options);
+      api_instance.call(request, options);
     });
-    API.call({
+    api_instance.call({
       'action': 'self.ping'
     }, {
       success: function(response) {

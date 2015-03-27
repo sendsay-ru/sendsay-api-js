@@ -11,7 +11,7 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
   }
 })(this, function(root, API, EventDispatcher, $) {
   API = (function(superClass) {
-    var ACTIONS_WITHOUT_SESSION, API_VERSION, MAX_RECALL_COUNT, MAX_REDIRECT_COUNT, _instance, _mixins, _redirect, _session, _url;
+    var ACTIONS_WITHOUT_SESSION, API_VERSION, MAX_RECALL_COUNT, MAX_REDIRECT_COUNT;
 
     extend(API, superClass);
 
@@ -23,31 +23,29 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
 
     API_VERSION = 100;
 
-    _url = 'https://api.sendsay.ru';
+    API.prototype._url = 'https://api.sendsay.ru';
 
-    _session = '';
+    API.prototype._session = '';
 
-    _redirect = '';
+    API.prototype._redirect = '';
 
-    _mixins = null;
-
-    _instance = null;
+    API.prototype._mixins = null;
 
     API.prototype.setRedirect = function(redirect) {
-      return _redirect = redirect;
+      return this._redirect = redirect;
     };
 
     API.prototype.setSession = function(session) {
-      return _session = session;
+      return this._session = session;
     };
 
     API.prototype.setURL = function(url) {
-      return _url = url;
+      return this._url = url;
     };
 
     API.prototype.mixin = function(action, handler) {
       var mixins;
-      mixins = _mixins || (_mixins = {});
+      mixins = this._mixins || (this._mixins = {});
       return mixins[action] = handler;
     };
 
@@ -55,20 +53,15 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
       if (options == null) {
         options = {};
       }
-      if (_instance) {
-        return _instance;
-      } else {
-        _instance = this;
-      }
       API.__super__.constructor.apply(this, arguments);
       if (options.url) {
-        _url = options.url;
+        this._url = options.url;
       }
       if (options.session) {
-        _session = options.session;
+        this._session = options.session;
       }
       if (options.redirect) {
-        _redirect = options.redirect;
+        this._redirect = options.redirect;
       }
     }
 
@@ -77,7 +70,7 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
         options = {};
       }
       if (this.hasMixin(request.action)) {
-        return _mixins[request.action](request, options);
+        return this._mixins[request.action](request, options);
       } else {
         return $.ajax(this.getAJAXSettings(request, options)).always(function(response, status, xhr) {
           switch (status) {
@@ -94,13 +87,13 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
 
     API.prototype.hasMixin = function(action) {
       var mixins;
-      mixins = _mixins || (_mixins = {});
+      mixins = this._mixins || (this._mixins = {});
       return mixins[action];
     };
 
     API.prototype.getAJAXSettings = function(request, options) {
       return {
-        'url': _url + _redirect,
+        'url': this._url + this._redirect,
         'data': this.getAJAXData(request, options),
         'context': this,
         'dataType': 'jsonp',
@@ -124,8 +117,8 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
     };
 
     API.prototype.getAJAXRequestString = function(request, options) {
-      if (_session && ACTIONS_WITHOUT_SESSION.indexOf(request.action === -1)) {
-        request.session = _session;
+      if (this._session && ACTIONS_WITHOUT_SESSION.indexOf(request.action === -1)) {
+        request.session = this._session;
       }
       return JSON.stringify(request);
     };
@@ -170,7 +163,7 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
         1: ++options.redirected
       };
       if (options.redirected !== MAX_REDIRECT_COUNT) {
-        _redirect = response.REDIRECT;
+        this._redirect = response.REDIRECT;
         return this.call(request, options);
       }
     };
@@ -212,7 +205,7 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
         });
       }
       if (request.action === 'login') {
-        _session = response.session;
+        this._session = response.session;
       }
       if (options.success) {
         return options.success.call(options.context || this, response, request, options);
@@ -260,5 +253,5 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
     return API;
 
   })(EventDispatcher);
-  return new API;
+  return API;
 });
