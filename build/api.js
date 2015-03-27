@@ -11,7 +11,7 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
   }
 })(this, function(root, API, EventDispatcher, $) {
   API = (function(superClass) {
-    var ACTIONS_WITHOUT_SESSION, API_VERSION, MAX_RECALL_COUNT, MAX_REDIRECT_COUNT, _instance, _redirect, _session, _url;
+    var ACTIONS_WITHOUT_SESSION, API_VERSION, MAX_RECALL_COUNT, MAX_REDIRECT_COUNT, _instance, _mixins, _redirect, _session, _url;
 
     extend(API, superClass);
 
@@ -29,6 +29,8 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
 
     _redirect = '';
 
+    _mixins = null;
+
     _instance = null;
 
     API.prototype.setRedirect = function(redirect) {
@@ -41,6 +43,12 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
 
     API.prototype.setURL = function(url) {
       return _url = url;
+    };
+
+    API.prototype.mixin = function(action, handler) {
+      var mixins;
+      mixins = _mixins || (_mixins = {});
+      return mixins[action] = handler;
     };
 
     function API(options) {
@@ -68,16 +76,26 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
       if (options == null) {
         options = {};
       }
-      return $.ajax(this.getAJAXSettings(request, options)).always(function(response, status, xhr) {
-        switch (status) {
-          case 'success':
-            return this.handleAJAXRequestSuccess(response, request, options);
-          case 'error':
-            return this.handleAJAXRequestError(response, request, options);
-          case 'canceled':
-            return this.handleAJAXRequestCancel(response, request, options);
-        }
-      });
+      if (this.hasMixin(request.action)) {
+        return _mixins[request.action](request, options);
+      } else {
+        return $.ajax(this.getAJAXSettings(request, options)).always(function(response, status, xhr) {
+          switch (status) {
+            case 'success':
+              return this.handleAJAXRequestSuccess(response, request, options);
+            case 'error':
+              return this.handleAJAXRequestError(response, request, options);
+            case 'canceled':
+              return this.handleAJAXRequestCancel(response, request, options);
+          }
+        });
+      }
+    };
+
+    API.prototype.hasMixin = function(action) {
+      var mixins;
+      mixins = _mixins || (_mixins = {});
+      return mixins[action];
     };
 
     API.prototype.getAJAXSettings = function(request, options) {

@@ -15,7 +15,7 @@ do (root = this, factory = (root, API, EventDispatcher, $) ->
     _url = 'https://api.sendsay.ru'
     _session = ''
     _redirect = ''
-
+    _mixins = null
     _instance = null
 
     setRedirect: (redirect) ->
@@ -26,6 +26,10 @@ do (root = this, factory = (root, API, EventDispatcher, $) ->
 
     setURL: (url) ->
       _url = url
+
+    mixin: (action, handler) ->
+      mixins = _mixins || (_mixins = {})
+      mixins[action] = handler
 
     constructor: (options = {}) ->
       if _instance
@@ -38,12 +42,19 @@ do (root = this, factory = (root, API, EventDispatcher, $) ->
       _redirect = options.redirect if options.redirect
 
     call: (request, options = {}) ->
-      $.ajax @getAJAXSettings request, options
-        .always (response, status, xhr) ->
-          switch status
-            when 'success' then @handleAJAXRequestSuccess response, request, options
-            when 'error' then @handleAJAXRequestError response, request, options
-            when 'canceled' then @handleAJAXRequestCancel response, request, options
+      if @hasMixin request.action
+        _mixins[request.action] request, options
+      else
+        $.ajax @getAJAXSettings request, options
+          .always (response, status, xhr) ->
+            switch status
+              when 'success' then @handleAJAXRequestSuccess response, request, options
+              when 'error' then @handleAJAXRequestError response, request, options
+              when 'canceled' then @handleAJAXRequestCancel response, request, options
+
+    hasMixin: (action) ->
+      mixins = _mixins || (_mixins = {})
+      mixins[action]
 
     getAJAXSettings: (request, options) ->
       'url': _url + _redirect,
