@@ -101,7 +101,8 @@ Set `url` as API url
 ### Call action
 
 ```js
-API.call({
+var api = new API();
+api.call({
   action: 'ping'  
 }, {
   success: function(response) {
@@ -113,7 +114,8 @@ API.call({
 ### Call action with api errors handling
 
 ```js
-API.call({
+var api = new API();
+api.call({
   action: 'ping'  
 }, {
   success: function(response) {
@@ -128,7 +130,8 @@ API.call({
 ### Call action without triggering events
 
 ```js
-API.call({
+var api = new API();
+api.call({
   action: 'ping'  
 }, {
   silent: true
@@ -138,7 +141,8 @@ API.call({
 ### Listen events
 
 ```js
-API.on('ajax:start', function(event) {
+var api = new API();
+api.on('ajax:start', function(event) {
   console.log("handle start of action");
 });
 ```
@@ -146,7 +150,8 @@ API.on('ajax:start', function(event) {
 ### Listen multiplie events
 
 ```js
-API.on('api:success api:error', function(event) {
+var api = new API();
+api.on('api:success api:error', function(event) {
   console.log("handle end of action");
 });
 ```
