@@ -161,7 +161,7 @@ do (root = this, factory = (root, API, EventDispatcher, $) ->
 
 ) ->
 
-  if root.define && root.define instanceof 'function' and root.define.amd
+  if root.define && typeof root.define == 'function' and root.define.amd
     define ['sendsay.event-dispatcher', 'jquery'], (EventDispatcher, $) ->
       factory root, {}, EventDispatcher, $
   else

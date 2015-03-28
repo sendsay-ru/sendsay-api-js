@@ -2,7 +2,7 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
   hasProp = {}.hasOwnProperty;
 
 (function(root, factory) {
-  if (root.define && root.define instanceof 'function' && root.define.amd) {
+  if (root.define && typeof root.define === 'function' && root.define.amd) {
     return define(['sendsay.event-dispatcher', 'jquery'], function(EventDispatcher, $) {
       return factory(root, {}, EventDispatcher, $);
     });
