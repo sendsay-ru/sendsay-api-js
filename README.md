@@ -172,3 +172,29 @@ api.call({
   }
 })
 ```
+
+### Save session for API
+```js
+var api = new API();
+api.call({
+  'action': 'login',
+  'login': 'demo',
+  'passwd': 'demo'
+}, {
+  success: function(response) {
+    api.setSession(response.session);
+    // other code
+  },
+  error: function(response) {
+    // handle erros
+  }
+});
+```
+
+### Init API with custom settings
+```js
+var api = new API({
+  url: 'customURL',
+  session: 'sessionFromCookie'
+});
+```
