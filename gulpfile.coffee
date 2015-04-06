@@ -36,7 +36,7 @@ gulp.task 'mocha', ->
     .pipe do plugins.mocha
 
 gulp.task 'watch', ->
-  gulp.watch sources.src.coffee, sync(['coffee', 'mocha'])
+  gulp.watch sources.src.coffee, ['coffee']
   gulp.watch sources.test.cases, ['mocha']
   gulp.watch sources.test.runner, ['mocha']
 
