@@ -117,7 +117,7 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
     };
 
     API.prototype.getAJAXRequestString = function(request, options) {
-      if (this._session && ACTIONS_WITHOUT_SESSION.indexOf(request.action === -1)) {
+      if (this._session && (ACTIONS_WITHOUT_SESSION.indexOf(request.action)) === -1 && !request['one_time_auth']) {
         request.session = this._session;
       }
       return JSON.stringify(request);

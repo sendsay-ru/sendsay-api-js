@@ -69,8 +69,8 @@ do (root = this, factory = (root, API, EventDispatcher, $) ->
       'request.id': (new Date()).getTime()
 
     getAJAXRequestString: (request, options) ->
-      if @_session && ACTIONS_WITHOUT_SESSION.indexOf request.action == -1
-        request.session = @_session;
+      if @_session && (ACTIONS_WITHOUT_SESSION.indexOf request.action) == -1 && !request['one_time_auth']
+        request.session = @_session
       JSON.stringify(request)
 
     handleAJAXRequestStart: (xhr, request, options) ->

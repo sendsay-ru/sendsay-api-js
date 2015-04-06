@@ -79,4 +79,45 @@ describe("API calls", function() {
     })
   });
 
+  it("call request with one time auth", function(done) {
+    var api_instance = new API();
+
+    api_instance.call({
+      "action": "pong",
+      "one_time_auth": {
+        "action": "login",
+        "login": "demo",
+        "passwd": "demo"
+      }
+    }, {
+      success: function() {
+        done();
+      }
+    })
+  })
+
+  it("call request with one time auth when authed", function(done) {
+    var api_instance = new API();
+    api_instance.call({
+      "action": "login",
+      "login": "demo",
+      "passwd": "demo"
+    }, {
+      success: function() {
+        api_instance.call({
+          "action": "pong",
+          "one_time_auth": {
+            "action": "login",
+            "login": "demo",
+            "passwd": "demo"
+          }
+        }, {
+          success: function() {
+            done();
+          }
+        })
+      }
+    })
+  });
+
 });
