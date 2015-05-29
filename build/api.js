@@ -93,11 +93,11 @@ var extend = function(child, parent) { for (var key in parent) { if (hasProp.cal
 
     API.prototype.getAJAXSettings = function(request, options) {
       return {
+        'type': 'POST',
         'url': this._url + this._redirect,
         'data': this.getAJAXData(request, options),
         'context': this,
-        'dataType': 'jsonp',
-        'jsonp': 'jsonp',
+        'dataType': 'json',
         'beforeSend': function(xhr) {
           return this.handleAJAXRequestStart(xhr, request, options);
         },

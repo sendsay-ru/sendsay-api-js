@@ -52,11 +52,12 @@ do (root = this, factory = (root, API, EventDispatcher, $) ->
       mixins[action]
 
     getAJAXSettings: (request, options) ->
+      'type': 'POST',
       'url': @_url + @_redirect,
       'data': @getAJAXData request, options
       'context': this,
-      'dataType': 'jsonp',
-      'jsonp': 'jsonp',
+      'dataType': 'json',
+      # 'jsonp': 'jsonp',
       'beforeSend': (xhr) ->
         @handleAJAXRequestStart xhr, request, options
       'complete': (xhr, options) ->
