@@ -103,8 +103,8 @@ hasProp = {}.hasOwnProperty;
         }
 
         API.prototype._getAJAXRequest = function (request, options) {
-            if (ACTIONS_WITHOUT_SESSION.indexOf(request.action) == -1 && request['one_time_auth'] !== undefined) {
-                request.session = this.session;
+            if (ACTIONS_WITHOUT_SESSION.indexOf(request.action) === -1 && request['one_time_auth'] === undefined) {
+                request.session = this._session;
             }
             return JSON.stringify(request);
         }

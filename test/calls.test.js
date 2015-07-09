@@ -18,8 +18,13 @@ describe("API calls", function () {
             'action': 'login',
             'login': 'demo',
             'passwd': 'demo'
-        }).done(function () {
-            done();
+        }).done(function (response) {
+            api._session = response.session;
+            api.call({
+                'action': 'pong'
+            }).done(function () {
+                done();
+            });
         });
     })
 
