@@ -1,123 +1,55 @@
-describe("API calls", function() {
-  this.timeout(10000);
+describe("API calls", function () {
+    this.timeout(5000);
 
-  it("call request without auth", function(done) {
-    var api_instance = new API();
-    api_instance.call({
-      "action": "ping"
-    }, {
-      success: function() {
-        done();
-      }
-    })
-  })
+    it("call request without auth", function (done) {
+        var api = new API();
 
-  it("call request with auth", function(done) {
-    var api_instance = new API();
-    api_instance.call({
-      "action": "login",
-      "login": "demo",
-      "passwd": "demo"
-    }, {
-      success: function() {
-        api_instance.call({
-          "action": "ping"
-        }, {
-          success: function() {
+        api.call({
+            'action': 'ping'
+        }).done(function () {
             done();
-          }
-        })
-      }
+        });
     })
-  });
 
-  it("call batch request", function(done) {
-    var api_instance = new API();
-    api_instance.call({
-      "action": "login",
-      "login": "demo",
-      "passwd": "demo"
-    }, {
-      success: function() {
-        api_instance.call({
-          "action": "batch",
-          "do": [{
-            "action": "pong"
-          }, {
-            "action": "pong"
-          }]
-        }, {
-          success: function() {
+    it("call request with auth", function (done) {
+        var api = new API();
+
+        api.call({
+            'action': 'login',
+            'login': 'demo',
+            'passwd': 'demo'
+        }).done(function () {
             done();
-          }
-        })
-      }
+        });
     })
-  });
 
-  it("call batch request with error", function(done) {
-    var api_instance = new API();
-    api_instance.call({
-      "action": "login",
-      "login": "demo",
-      "passwd": "demo"
-    }, {
-      success: function() {
-        api_instance.call({
-          "action": "batch",
-          "do": [{
-            "action": "ping"
-          }, {
-            "action": "ping"
-          }]
-        }, {
-          error: function() {
+    it("call request with error", function (done) {
+        var api = new API();
+
+        api.call({
+            'action': 'login',
+            'login': 'demo',
+            'passwd': 'demo1'
+        }).done(function() {
+            console.log(arguments);
+        }).fail(function () {
+            console.log(1);
             done();
-          }
-        })
-      }
-    })
-  });
+        });
+    });
 
-  it("call request with one time auth", function(done) {
-    var api_instance = new API();
+    it("call to unexisted url", function (done) {
+        var api = new API({
+            url: 'http://unexistedurl'
+        });
 
-    api_instance.call({
-      "action": "pong",
-      "one_time_auth": {
-        "action": "login",
-        "login": "demo",
-        "passwd": "demo"
-      }
-    }, {
-      success: function() {
-        done();
-      }
-    })
-  })
-
-  it("call request with one time auth when authed", function(done) {
-    var api_instance = new API();
-    api_instance.call({
-      "action": "login",
-      "login": "demo",
-      "passwd": "demo"
-    }, {
-      success: function() {
-        api_instance.call({
-          "action": "pong",
-          "one_time_auth": {
-            "action": "login",
-            "login": "demo",
-            "passwd": "demo"
-          }
-        }, {
-          success: function() {
+        api.call({
+            'action': 'login',
+            'login': 'demo1',
+            'passwd': 'demo'
+        }).fail(function () {
             done();
-          }
-        })
-      }
-    })
-  });
+        });
+    });
 
 });

@@ -1,11 +1,9 @@
 {
   "name": "sendsay.api",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "devDependencies": {
     "chai": "^2.1.2",
-    "coffee-script": "^1.9.1",
     "gulp": "^3.8.11",
-    "gulp-coffee": "^2.3.1",
     "gulp-load-plugins": "^0.9.0",
     "gulp-mocha-phantomjs": "^0.5.3",
     "gulp-plumber": "^0.6.6",

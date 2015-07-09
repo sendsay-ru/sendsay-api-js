@@ -11,7 +11,7 @@
     <script src="../node_modules/chai/chai.js"></script>
     <script src="../bower_components/jquery/dist/jquery.min.js"></script>
     <script src="../bower_components/sendsay.event-dispatcher/build/event-dispatcher.min.js"></script>
-    <script src="../build/api.js"></script>
+    <script src="../src/api.js"></script>
     <script>
         mocha.ui('bdd');
         mocha.reporter('html');
@@ -19,7 +19,6 @@
     </script>
     <script src="calls.test.js"></script>
     <script src="events.test.js"></script>
-    <script src="mixins.test.js"></script>
     <script>
         if (window.mochaPhantomJS) {
             mochaPhantomJS.run();
