@@ -78,13 +78,16 @@ hasProp = {}.hasOwnProperty;
         }
 
         API.prototype._getAJAXSettings = function (request, options) {
-            var self = this;
-
+        
+            var self = this,
+                global = !(options.silent || false);
+            
             return {
                 type: 'POST',
                 data: this._getAJAXData(request, options),
                 url: this._url + (this._redirect || ''),
                 dataType: 'json',
+                global: global,
                 beforeSend: function (xhr) {
                     self._handleAJAXStart(xhr, request, options);
                 },
