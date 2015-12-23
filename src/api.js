@@ -146,7 +146,11 @@ hasProp = {}.hasOwnProperty;
                 request: request,
                 options: options
             });
-            return $.Deferred().reject(response, request, options).promise();
+            if (options.resolveAPIErrors) {
+                return $.Deferred().resolve(response, request, options).promise();
+            } else {
+                return $.Deferred().reject(response, request, options).promise();
+            }
         }
 
         API.prototype._handleRedirectCall = function (response, request, options) {
