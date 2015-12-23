@@ -49,6 +49,8 @@ hasProp = {}.hasOwnProperty;
 
             options = options || {};
 
+            this._requestNumber = (new Date()).getTime();
+            this._requestIdPrefix = options.requestIdPrefix || 'APP_';
             this._url = options.url || 'https://api.sendsay.ru';
             this._session = options.session;
         }
@@ -101,7 +103,8 @@ hasProp = {}.hasOwnProperty;
             return {
                 'apiversion': API_VERSION,
                 'json': 1,
-                'request': this._getAJAXRequest(request, options)
+                'request': this._getAJAXRequest(request, options),
+                'request.id': this._getAJAXRequestId()
             };
         }
 
@@ -110,6 +113,31 @@ hasProp = {}.hasOwnProperty;
                 request.session = this._session;
             }
             return JSON.stringify(request);
+        }
+
+        API.prototype._getAJAXRequestId = function () {
+            var requestId = this._requestIdPrefix,
+                now = new Date();
+
+            if (this._session) {
+                requestId += this._getLogin() + '_';
+            }
+
+            requestId += (this._requestNumber++) + '_';
+
+            requestId += (new Date(now - now.getTimezoneOffset() * 60000)).toISOString().slice(0, -5);
+
+            return requestId;
+        }
+
+        API.prototype._getLogin = function () {
+            var login = this._session.match(/(.+?):/)[1];
+
+            if (login) {
+                login = login.slice((login.length / 2).toFixed(0));
+            }
+
+            return login.toUpperCase() || 'UNKNOWN';
         }
 
         API.prototype._handleErrorCall = function (response, request, options) {
