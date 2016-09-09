@@ -15,13 +15,12 @@ hasProp = {}.hasOwnProperty;
 
 (function (root, factory) {
 
-    if (root.define && typeof root.define == 'function' && root.define.amd) {
-        define([
-            'jquery',
-            'sendsay.event-dispatcher'
-        ], function ($, EventDispatcher) {
+    if (typeof exports === 'object' && typeof module === 'object') {
+        module.exports = factory(root, {}, require('jquery'), require('./event-dispatcher'));
+    } else if (root.define && typeof root.define == 'function' && root.define.amd) {
+        define(['jquery', './event-dispatcher'], function ($, EventDispatcher) {
             return factory(root, {}, $, EventDispatcher);
-        })
+        });
     } else {
         root.API = factory(root, {}, $, EventDispatcher);
     }
@@ -80,10 +79,10 @@ hasProp = {}.hasOwnProperty;
         }
 
         API.prototype._getAJAXSettings = function (request, options) {
-        
+
             var self = this,
                 global = !(options.silent || false);
-            
+
             return {
                 type: 'POST',
                 data: this._getAJAXData(request, options),
