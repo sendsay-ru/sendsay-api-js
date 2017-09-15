@@ -52,6 +52,7 @@ hasProp = {}.hasOwnProperty;
             this._requestIdPrefix = options.requestIdPrefix || 'APP_';
             this._url = options.url || 'https://api.sendsay.ru';
             this._session = options.session;
+            this._policy = options.policy;
         }
 
         API.prototype.call = function (request, options) {
@@ -111,6 +112,11 @@ hasProp = {}.hasOwnProperty;
             if (ACTIONS_WITHOUT_SESSION.indexOf(request.action) === -1 && request['one_time_auth'] === undefined) {
                 request.session = this._session;
             }
+
+            if (this._policy) {
+                request['lbac.policy'] = this._policy;
+            }
+
             return JSON.stringify(request);
         }
 
