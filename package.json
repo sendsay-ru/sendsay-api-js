@@ -1,6 +1,7 @@
 {
-  "name": "sendsay.api",
-  "version": "1.0.0",
+  "name": "sendsay",
+  "version": "1.1.0",
+  "main": "src/api.js",
   "devDependencies": {
     "chai": "^2.1.2",
     "gulp": "^3.8.11",
@@ -14,12 +15,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sendsay-ru/api.git"
+    "url": "https://github.com/sendsay-ru/sendsay-api-js.git"
   },
   "author": "zoux",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sendsay-ru/api/issues"
+    "url": "https://github.com/sendsay-ru/sendsay-api-js/issues"
   },
-  "homepage": "https://github.com/sendsay-ru/api"
+  "homepage": "https://github.com/sendsay-ru/sendsay-api-js"
 }

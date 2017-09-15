@@ -1,3 +1,12 @@
+*.iml
 .DS_Store
-node_modules
-bower_components
+.babelcache
+.env
+.eslintcache
+.idea
+.npm
+.tmp
+/bower_components
+/dist
+/node_modules
+npm-debug.log
