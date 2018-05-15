@@ -128,6 +128,10 @@ hasProp = {}.hasOwnProperty;
                 requestId += this._getLogin() + '_';
             }
 
+            if (typeof window !== 'undefined' && window.location) {
+                requestId += window.location.pathname + '_';
+            }
+
             requestId += (this._requestNumber++) + '_';
 
             requestId += (new Date(now - now.getTimezoneOffset() * 60000)).toISOString().slice(0, -5);
