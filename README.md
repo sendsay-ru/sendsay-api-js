@@ -29,7 +29,7 @@ yarn add sendsay-api
 Then:
 
 ```javascript
-import Sendsay from 'sensdsay-api';
+import Sendsay from 'sendsay-api';
 ```
 
 Or, if you're not using ES6 modules:
@@ -43,13 +43,13 @@ const Sendsay = require('sendsay-api');
 Minified:
 
 ```html
-<script type="text/javascript" src="https://image.sendsay.ru/app/js/v1/sendsay.min.js"></script>
+<script type="text/javascript" src="https://image.sendsay.ru/app/js/v1/sendsay-api.min.js"></script>
 ```
 
 Unminified:
 
 ```html
-<script type="text/javascript" src="https://image.sendsay.ru/app/js/v1/sendsay.js"></script>
+<script type="text/javascript" src="https://image.sendsay.ru/app/js/v1/sendsay-api.js"></script>
 ```
 
 ## Usage
