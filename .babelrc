@@ -1,0 +1,26 @@
+{
+  presets: [
+    ["env", {
+      modules: false,
+    }],
+  ],
+
+  plugins: [
+    "transform-object-rest-spread",
+    "transform-class-properties",
+  ],
+
+  "env": {
+    "production": {
+      "plugins": [
+        "external-helpers",
+      ],
+    },
+
+    "test": {
+      "plugins": [
+        "transform-es2015-modules-commonjs"
+      ],
+    },
+  },
+}
