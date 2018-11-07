@@ -67,7 +67,7 @@ if (process.env.NODE_ENV === 'production') {
         {
           name: 'sendsay',
           moduleName: 'sendsay',
-          file: 'dist/sendsay.min.js',
+          file: 'dist/sendsay-api.min.js',
           format: 'iife'
         },
       ],

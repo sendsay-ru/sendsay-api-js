@@ -1,8 +1,8 @@
 {
-  "name": "sendsay",
+  "name": "sendsay-api",
   "version": "2.0.0",
-  "main": "dist/sendsay.cjs.js",
-  "browser": "dist/sendsay.js",
+  "main": "dist/sendsay-api.cjs.js",
+  "browser": "dist/sendsay-api.js",
   "license": "MIT",
   "repository": {
     "type": "git",

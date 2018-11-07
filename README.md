@@ -23,19 +23,19 @@ If you're using Sendsay on a web page, you can install the library via:
 You can use any NPM-compatible package manager, including NPM itself and Yarn.
 
 ```bash
-yarn add sendsay
+yarn add sendsay-api
 ```
 
 Then:
 
 ```javascript
-import Sendsay from 'sensdsay';
+import Sendsay from 'sensdsay-api';
 ```
 
 Or, if you're not using ES6 modules:
 
 ```javascript
-const Sendsay = require('sendsay');
+const Sendsay = require('sendsay-api');
 ```
 
 #### CDN
