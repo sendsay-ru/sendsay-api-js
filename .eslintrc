@@ -2,4 +2,12 @@
   "extends": "airbnb-base",
   "parser": "babel-eslint",
   "root": true,
+
+  "env": {
+    "browser": true
+  },
+
+  "plugins": [
+    "markdown"
+  ]
 }

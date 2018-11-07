@@ -1,6 +1,6 @@
 {
   "name": "sendsay-api",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "main": "dist/sendsay-api.cjs.js",
   "browser": "dist/sendsay-api.js",
   "license": "MIT",
@@ -9,6 +9,7 @@
     "url": "https://github.com/sendsay-ru/sendsay-api-js.git"
   },
   "scripts": {
+    "eslint": "eslint . --ext=js,md --ignore-pattern=dist/**/*.js --color",
     "build": "NODE_ENV=production rollup -c",
     "watch": "rollup -c -w",
     "serve": "serve"
@@ -28,6 +29,8 @@
     "dotenv": "^6.0.0",
     "eslint": "^5.4.0",
     "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-markdown": "^1.0.0-rc.0",
     "rollup": "^0.66.0",
     "rollup-plugin-babel": "3",
     "rollup-plugin-commonjs": "^9.1.0",

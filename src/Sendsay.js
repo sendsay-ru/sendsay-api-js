@@ -2,8 +2,8 @@ const MAX_REDIRECT_COUNT = 10;
 const VERSION = 100;
 const REQUEST_PREFIX = 'JS';
 
-function getCookie(name){
-  return (document.cookie.match('(^|; )' + name + '=([^;]*)') || 0)[2];
+function getCookie(name) {
+  return (document.cookie.match(`(^|; )${name}=([^;]*)`) || 0)[2];
 }
 
 class Sendsay {
@@ -46,20 +46,16 @@ class Sendsay {
       Accept: 'application/json',
     };
 
-    if (!(body instanceof FormData)) {
-      headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=utf-8';
-    }
-
     return fetch(`${this.url}${this.redirect || ''}`, {
       method: 'POST',
       body,
       headers,
     })
-    .catch(this.catchConnectionErrors)
-    .then(this.checkStatus)
-    .then(this.parseResponse)
-    .then(res => this.checkResponseErrors(req, res, nextOptions))
-    .then(res => this.checkRedirect(req, res, nextOptions));
+      .catch(this.catchConnectionErrors)
+      .then(this.checkStatus)
+      .then(this.parseResponse)
+      .then(res => this.checkResponseErrors(req, res, nextOptions))
+      .then(res => this.checkRedirect(req, res, nextOptions));
   }
 
   catchConnectionErrors = (err) => {
@@ -72,10 +68,10 @@ class Sendsay {
       return res;
     }
 
-    // FIXME: RequestError(code, reason, error)
-    const err = new RequestError(res.statusText);
+    const err = new Error('Network response was not ok.');
 
     this.callErrorHandler(err);
+
     throw err;
   }
 
@@ -83,14 +79,9 @@ class Sendsay {
     try {
       return res.json();
     } catch (err) {
-      let finalErr = err;
+      this.callErrorHandler(err);
 
-      if (/JSON/.test(err)) {
-        finalErr = new RequestError('fetch', 'invalid_json');
-      }
-
-      this.callErrorHandler(finalErr);
-      throw finalErr;
+      throw err;
     }
   }
 
@@ -130,31 +121,6 @@ class Sendsay {
   }
 
   getRequestBody(req) {
-    if (Object.keys(req).some(key => key.match(/^EFS_/))) {
-      const formData = new FormData();
-      const efsParams = [];
-      const reducedRequest = Object.keys(req).reduce((memo, key) => {
-        if (!key.match(/^EFS_/)) {
-          return { ...memo, [key]: req[key] };
-        }
-
-        efsParams.push(key);
-
-        return memo;
-      }, {});
-
-      formData.append('apiversion', VERSION);
-      formData.append('json', 1);
-      formData.append('request.id', this.getRequestId());
-      formData.append('request', this.getRequestData(reducedRequest));
-
-      efsParams.forEach((key) => {
-        formData.append(key, req[key]);
-      });
-
-      return formData;
-    }
-
     let requestBody = `apiversion=${VERSION}&json=1`;
 
     requestBody += `&request=${encodeURIComponent(this.getRequestData(req))}`;

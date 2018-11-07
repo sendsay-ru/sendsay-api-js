@@ -1,65 +1,6 @@
-# Sendsay Javascript Client
+let sendsay = new Sendsay();
 
-The Sendsay Javascript Client provides convenient access to the Sendsay API from applications written in JavaScript.
-
-[Official Sendsay API Documentation (Russian)](https://sendsay.ru/api/api.html)
-
-NOTE!
-
-Node.js incompatible. Polyfills required:
-
-- Fetch
-- FormData
-- Blob 
-
-## Installation
-
-### Web
-
-If you're using Sendsay on a web page, you can install the library via:
-
-#### Yarn (or NPM)
-
-You can use any NPM-compatible package manager, including NPM itself and Yarn.
-
-```bash
-yarn add sendsay-api
-```
-
-Then:
-
-```javascript
-import Sendsay from 'sendsay-api';
-```
-
-Or, if you're not using ES6 modules:
-
-```javascript
-const Sendsay = require('sendsay-api');
-```
-
-#### CDN
-
-Minified:
-
-```html
-<script type="text/javascript" src="https://image.sendsay.ru/app/js/v1/sendsay-api.min.js"></script>
-```
-
-Unminified:
-
-```html
-<script type="text/javascript" src="https://image.sendsay.ru/app/js/v1/sendsay-api.js"></script>
-```
-
-## Usage
-
-#### Authentication
-
-```javascript
-var sendsay = new Sendsay();
-
-sendsay.request({ action: 'login', login: 'demo',  passw: 'secret' }).then(function(res) {
+sendsay.request({ action: 'login', login: 'demo', passw: 'secret' }).then((res) => {
   sendsay.setSession(res.session);
 
   // The requests below will be authenticated.
@@ -67,7 +8,7 @@ sendsay.request({ action: 'login', login: 'demo',  passw: 'secret' }).then(funct
   sendsay.request(res.session).then(function(res) {
     console.log(res.list['about.id']);
   })
-}); 
+});
 ````
 
 #### Retrieve the session from cookies
@@ -77,7 +18,7 @@ sendsay.setSessionFromCookie(); // By default it looks up for 'sendsay_session'.
 ```
 
 ```javascript
-sendsay.setSessionFromCookie('custom_cookie_name'); 
+sendsay.setSessionFromCookie('custom_cookie_name');
 ```
 
 #### Simple request

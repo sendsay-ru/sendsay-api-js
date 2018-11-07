@@ -24,21 +24,6 @@ var createClass = function () {
   };
 }();
 
-var defineProperty = function (obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-};
-
 var _extends = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i];
@@ -91,10 +76,10 @@ var Sendsay = function () {
         return res;
       }
 
-      // FIXME: RequestError(code, reason, error)
-      var err = new RequestError(res.statusText);
+      var err = new Error('Network response was not ok.');
 
       _this.callErrorHandler(err);
+
       throw err;
     };
 
@@ -102,14 +87,9 @@ var Sendsay = function () {
       try {
         return res.json();
       } catch (err) {
-        var finalErr = err;
+        _this.callErrorHandler(err);
 
-        if (/JSON/.test(err)) {
-          finalErr = new RequestError('fetch', 'invalid_json');
-        }
-
-        _this.callErrorHandler(finalErr);
-        throw finalErr;
+        throw err;
       }
     };
 
@@ -170,10 +150,6 @@ var Sendsay = function () {
         Accept: 'application/json'
       };
 
-      if (!(body instanceof FormData)) {
-        headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=utf-8';
-      }
-
       return fetch('' + this.url + (this.redirect || ''), {
         method: 'POST',
         body: body,
@@ -221,33 +197,6 @@ var Sendsay = function () {
   }, {
     key: 'getRequestBody',
     value: function getRequestBody(req) {
-      if (Object.keys(req).some(function (key) {
-        return key.match(/^EFS_/);
-      })) {
-        var formData = new FormData();
-        var efsParams = [];
-        var reducedRequest = Object.keys(req).reduce(function (memo, key) {
-          if (!key.match(/^EFS_/)) {
-            return _extends({}, memo, defineProperty({}, key, req[key]));
-          }
-
-          efsParams.push(key);
-
-          return memo;
-        }, {});
-
-        formData.append('apiversion', VERSION);
-        formData.append('json', 1);
-        formData.append('request.id', this.getRequestId());
-        formData.append('request', this.getRequestData(reducedRequest));
-
-        efsParams.forEach(function (key) {
-          formData.append(key, req[key]);
-        });
-
-        return formData;
-      }
-
       var requestBody = 'apiversion=' + VERSION + '&json=1';
 
       requestBody += '&request=' + encodeURIComponent(this.getRequestData(req));

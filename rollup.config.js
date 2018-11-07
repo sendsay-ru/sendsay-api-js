@@ -14,7 +14,7 @@ const configs = [
         name: 'sendsay',
         moduleName: 'sendsay',
         file: pkg.browser,
-        format: 'iife'
+        format: 'iife',
       },
     ],
 
@@ -30,7 +30,7 @@ const configs = [
       }),
 
       json(),
-    ]
+    ],
   },
 
   {
@@ -55,7 +55,7 @@ const configs = [
       'isomorphic-fetch',
       'es6-promise',
     ],
-  }
+  },
 ];
 
 if (process.env.NODE_ENV === 'production') {
@@ -68,7 +68,7 @@ if (process.env.NODE_ENV === 'production') {
           name: 'sendsay',
           moduleName: 'sendsay',
           file: 'dist/sendsay-api.min.js',
-          format: 'iife'
+          format: 'iife',
         },
       ],
 
@@ -85,9 +85,9 @@ if (process.env.NODE_ENV === 'production') {
 
         json(),
         uglify(),
-      ]
+      ],
     },
-  )
+  );
 }
 
 export default configs;
