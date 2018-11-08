@@ -125,10 +125,10 @@ req.then(function(res) {
 
 ## Configuration
 
-There are a number of configuration parameters which can be set for the Sendsay client, which can be passed as an object to the Pusher constructor, i.e.:
+There are a number of configuration parameters which can be set for the Sendsay client, which can be passed as an object to the Sendsay constructor, i.e.:
 
 ```javascript
-  var sendsay = new Sendsay({ apiUrl: 'https://api.development.sendsay.ru' })
+var sendsay = new Sendsay({ apiUrl: 'https://api.development.sendsay.ru' })
 ````
 
 #### `apiUrl` (String)
