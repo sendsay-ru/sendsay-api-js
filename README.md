@@ -48,8 +48,8 @@ Unminified:
 
 Node.js compatible. Install [the fetch polyfill](https://github.com/matthew-andrews/isomorphic-fetch):
 
-```javascript
-yarn add isomorphic-fetch es6-promise
+```bash
+yarn add isomorphic-fetch
 ```
 
 ## Usage
@@ -123,4 +123,17 @@ req.then(function(res) {
 });
 ```
 
+## Configuration
+
+There are a number of configuration parameters which can be set for the Sendsay client, which can be passed as an object to the Pusher constructor, i.e.:
+
+```javascript
+  var sendsay = new Sendsay({ apiUrl: 'https://api.development.sendsay.ru' })
+````
+
+#### `apiUrl` (String)
+
+Default: `'https://api.sendsay.ru'`
+
+The url to the Sendsay API server.
 

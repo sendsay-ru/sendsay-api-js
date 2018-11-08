@@ -14,9 +14,9 @@ class Sendsay {
     return (new Date(now - offset)).toISOString();
   }
 
-  constructor({ url = 'https://api.sendsay.ru' } = {}) {
+  constructor({ apiUrl = 'https://api.sendsay.ru' } = {}) {
     this.requestNumber = (new Date()).getTime();
-    this.url = url;
+    this.apiUrl = apiUrl;
   }
 
   setSession(session) {
@@ -46,7 +46,7 @@ class Sendsay {
       Accept: 'application/json',
     };
 
-    return fetch(`${this.url}${this.redirect || ''}`, {
+    return fetch(`${this.apiUrl}${this.redirect || ''}`, {
       method: 'POST',
       body,
       headers,

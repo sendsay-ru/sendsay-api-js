@@ -62,8 +62,8 @@
       var _this = this;
 
       var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
-          _ref$url = _ref.url,
-          url = _ref$url === undefined ? 'https://api.sendsay.ru' : _ref$url;
+          _ref$apiUrl = _ref.apiUrl,
+          apiUrl = _ref$apiUrl === undefined ? 'https://api.sendsay.ru' : _ref$apiUrl;
 
       classCallCheck(this, Sendsay);
 
@@ -106,7 +106,7 @@
       };
 
       this.requestNumber = new Date().getTime();
-      this.url = url;
+      this.apiUrl = apiUrl;
     }
 
     createClass(Sendsay, [{
@@ -151,7 +151,7 @@
           Accept: 'application/json'
         };
 
-        return fetch('' + this.url + (this.redirect || ''), {
+        return fetch('' + this.apiUrl + (this.redirect || ''), {
           method: 'POST',
           body: body,
           headers: headers
