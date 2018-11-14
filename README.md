@@ -62,8 +62,8 @@ yarn add isomorphic-fetch
 var sendsay = new Sendsay({ apiKey: '...' });
 
 sendsay.request({ action: 'sys.settings.get', list: ['about.id']}).then(function(res) {
-    console.log(res.list['about.id']);
-  })
+  console.log(res.list['about.id']);
+})
 ```
 
 **Using login and password:**
