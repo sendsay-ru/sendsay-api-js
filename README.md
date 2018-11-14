@@ -92,9 +92,9 @@ There is also a special method for authentication via a login:
 var sendsay = new Sendsay();
 
 sendsay.login({
-    login: 'login', 
-    sublogin: 'optional', 
-    password: 'secret',  
+  login: 'login', 
+  sublogin: 'optional', 
+  password: 'secret',  
 }).then(function() {
   // The sendsay instance is authenticated. Do a request.
 })
