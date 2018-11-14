@@ -6,6 +6,12 @@ function getCookie(name) {
   return (document.cookie.match(`(^|; )${name}=([^;]*)`) || 0)[2];
 }
 
+const NO_AUTHENTICATION_REQUIRED_ACTIONS = [
+  'ping',
+  'login',
+  'login.agses.challenge'
+];
+
 class Sendsay {
   static getLocaleDateISOString() {
     const now = new Date();
@@ -14,9 +20,11 @@ class Sendsay {
     return (new Date(now - offset)).toISOString();
   }
 
-  constructor({ apiUrl = 'https://api.sendsay.ru' } = {}) {
+  constructor({ apiKey, apiUrl = 'https://api.sendsay.ru', auth } = {}) {
     this.requestNumber = (new Date()).getTime();
     this.apiUrl = apiUrl;
+    this.apiKey = apiKey;
+    this.auth = auth;
   }
 
   setSession(session) {
@@ -39,7 +47,30 @@ class Sendsay {
     this.errorHandler = handler;
   }
 
-  request(req, options = {}) {
+  login = ({ login, sublogin, password } = {}) => (
+    this.performRequest({
+      action: 'login',
+      login,
+      sublogin,
+      passwd: password,
+    }).then((res) => {
+      this.setSession(res.session);
+    })
+  )
+
+  request = (req = {}, options = {}) => {
+    let seq;
+
+    if (!this.apiKey && !this.session && this.auth && NO_AUTHENTICATION_REQUIRED_ACTIONS.indexOf(req.action) === -1) {
+      seq = this.login(this.auth);
+    } else {
+      seq = Promise.resolve();
+    }
+
+    return seq.then(() => this.performRequest(req, options));
+  }
+
+  performRequest = (req, options = {}) => {
     const nextOptions = { redirected: 0, ...options };
     const body = this.getRequestBody(req);
     const headers = {
@@ -132,7 +163,9 @@ class Sendsay {
   getRequestData(req) {
     const finalReq = { ...req };
 
-    if (this.session) {
+    if (this.apiKey) {
+      finalReq.apikey = this.apiKey;
+    } else if (this.session) {
       finalReq.session = this.session;
     }
 
@@ -154,6 +187,10 @@ class Sendsay {
   }
 
   getUsername() {
+    if (this.apiKey) {
+      return 'apikey';
+    }
+
     if (!this.session) {
       return 'unauthorized';
     }

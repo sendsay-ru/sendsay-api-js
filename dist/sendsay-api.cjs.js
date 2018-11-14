@@ -46,6 +46,8 @@ function getCookie(name) {
   return (document.cookie.match('(^|; )' + name + '=([^;]*)') || 0)[2];
 }
 
+var NO_AUTHENTICATION_REQUIRED_ACTIONS = ['ping', 'login', 'login.agses.challenge'];
+
 var Sendsay = function () {
   createClass(Sendsay, null, [{
     key: 'getLocaleDateISOString',
@@ -61,10 +63,65 @@ var Sendsay = function () {
     var _this = this;
 
     var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+        apiKey = _ref.apiKey,
         _ref$apiUrl = _ref.apiUrl,
-        apiUrl = _ref$apiUrl === undefined ? 'https://api.sendsay.ru' : _ref$apiUrl;
+        apiUrl = _ref$apiUrl === undefined ? 'https://api.sendsay.ru' : _ref$apiUrl,
+        auth = _ref.auth;
 
     classCallCheck(this, Sendsay);
+
+    this.login = function () {
+      var _ref2 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+          login = _ref2.login,
+          sublogin = _ref2.sublogin,
+          password = _ref2.password;
+
+      return _this.performRequest({
+        action: 'login',
+        login: login,
+        sublogin: sublogin,
+        passwd: password
+      }).then(function (res) {
+        _this.setSession(res.session);
+      });
+    };
+
+    this.request = function () {
+      var req = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+      var seq = void 0;
+
+      if (!_this.apiKey && !_this.session && _this.auth && NO_AUTHENTICATION_REQUIRED_ACTIONS.indexOf(req.action) === -1) {
+        seq = _this.login(_this.auth);
+      } else {
+        seq = Promise.resolve();
+      }
+
+      return seq.then(function () {
+        return _this.performRequest(req, options);
+      });
+    };
+
+    this.performRequest = function (req) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+      var nextOptions = _extends({ redirected: 0 }, options);
+      var body = _this.getRequestBody(req);
+      var headers = {
+        Accept: 'application/json'
+      };
+
+      return fetch('' + _this.apiUrl + (_this.redirect || ''), {
+        method: 'POST',
+        body: body,
+        headers: headers
+      }).catch(_this.catchConnectionErrors).then(_this.checkStatus).then(_this.parseResponse).then(function (res) {
+        return _this.checkResponseErrors(req, res, nextOptions);
+      }).then(function (res) {
+        return _this.checkRedirect(req, res, nextOptions);
+      });
+    };
 
     this.catchConnectionErrors = function (err) {
       _this.callErrorHandler(err);
@@ -106,6 +163,8 @@ var Sendsay = function () {
 
     this.requestNumber = new Date().getTime();
     this.apiUrl = apiUrl;
+    this.apiKey = apiKey;
+    this.auth = auth;
   }
 
   createClass(Sendsay, [{
@@ -136,29 +195,6 @@ var Sendsay = function () {
     key: 'onError',
     value: function onError(handler) {
       this.errorHandler = handler;
-    }
-  }, {
-    key: 'request',
-    value: function request(req) {
-      var _this2 = this;
-
-      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-      var nextOptions = _extends({ redirected: 0 }, options);
-      var body = this.getRequestBody(req);
-      var headers = {
-        Accept: 'application/json'
-      };
-
-      return fetch('' + this.apiUrl + (this.redirect || ''), {
-        method: 'POST',
-        body: body,
-        headers: headers
-      }).catch(this.catchConnectionErrors).then(this.checkStatus).then(this.parseResponse).then(function (res) {
-        return _this2.checkResponseErrors(req, res, nextOptions);
-      }).then(function (res) {
-        return _this2.checkRedirect(req, res, nextOptions);
-      });
     }
   }, {
     key: 'checkResponseErrors',
@@ -209,7 +245,9 @@ var Sendsay = function () {
     value: function getRequestData(req) {
       var finalReq = _extends({}, req);
 
-      if (this.session) {
+      if (this.apiKey) {
+        finalReq.apikey = this.apiKey;
+      } else if (this.session) {
         finalReq.session = this.session;
       }
 
@@ -229,6 +267,10 @@ var Sendsay = function () {
   }, {
     key: 'getUsername',
     value: function getUsername() {
+      if (this.apiKey) {
+        return 'apikey';
+      }
+
       if (!this.session) {
         return 'unauthorized';
       }

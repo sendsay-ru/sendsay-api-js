@@ -56,28 +56,64 @@ yarn add isomorphic-fetch
 
 #### Authentication
 
+**Using API key (the recommended way):**  
+
 ```javascript
-var sendsay = new Sendsay();
+var sendsay = new Sendsay({ apiKey: '...' });
 
-sendsay.request({ action: 'login', login: 'demo',  passw: 'secret' }).then(function(res) {
-  sendsay.setSession(res.session);
-
-  // The requests below will be authenticated.
- 
-  sendsay.request(res.session).then(function(res) {
+sendsay.request({ action: 'sys.settings.get', list: ['about.id']}).then(function(res) {
     console.log(res.list['about.id']);
   })
-}); 
-````
+```
 
-#### Retrieve the session from cookies
+**Using login and password:**
+
+Sendsay client will automatically create a new session right before the first request sent.
+
+> NOTE: All the methods below don't automatically renew sessions. This feature will be implemented in the next releases.
 
 ```javascript
-sendsay.setSessionFromCookie(); // By default it looks up for 'sendsay_session'.
+var sendsay = new Sendsay({
+  auth: {
+    login: 'login', 
+    sublogin: 'optional', 
+    password: 'secret',     
+  }
+});
+
+sendsay.request({ action: 'sys.settings.get', list: ['about.id']}).then(function(res) {
+  console.log(res.list['about.id']);
+})
+```
+
+There is also a special method for authentication via a login:
+
+```
+var sendsay = new Sendsay();
+
+sendsay.login({
+    login: 'login', 
+    sublogin: 'optional', 
+    password: 'secret',  
+}).then(function() {
+  // The sendsay instance is authenticated. Do a request.
+})
+```
+
+#### Retrieve session from cookies
+
+```javascript
+sendsay.setSessionFromCookie(); // By default the cookie's name is 'sendsay_session'.
 ```
 
 ```javascript
 sendsay.setSessionFromCookie('custom_cookie_name'); 
+```
+
+#### Set session manually.
+
+```
+sendsay.setSession('secret'); 
 ```
 
 #### Simple request
@@ -136,4 +172,13 @@ var sendsay = new Sendsay({ apiUrl: 'https://api.development.sendsay.ru' })
 Default: `'https://api.sendsay.ru'`
 
 The url to the Sendsay API server.
+
+
+#### `apiKey` (String)
+
+The api key for authentication.
+
+#### `auth` (Object)
+
+The auth credentials (`login`, `sublogin`, `password`) for authentication.
 

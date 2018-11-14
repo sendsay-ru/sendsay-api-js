@@ -12,52 +12,80 @@
   <body>
     <h1>Sendsay Javascript Client</h1>
 
-    <script type="text/javascript" >
-      var sendsay = new Sendsay();
-
-      sendsay.setSessionFromCookie();
-      sendsay.setPolicyFromCookie();
+    <script>
+      window.sendsay = new Sendsay({ apiKey: window.localStorage.getItem('apiKey') });
 
       var req = sendsay.request({
         action: 'sys.settings.get',
 
         list: [
-          'about.confirm',
           'about.id',
-          'about.label.member',
-          'about.name',
-          'about.open.dt',
-          'about.open.visitor',
-          'about.owner.email',
-          'about.tarif',
-          'about.user',
-          'anketa.id.base',
-          'anketa.id.custom',
-          'interface.type',
-          'interface.type.user',
-          'issue.email.sender.moderation',
-          'issue.pte.datakey',
-          'lbac.inuse',
-          'lbac.on',
-          'member.hard.limit',
-          'member.hard.rest',
-          'member.noconfirm.limit',
-          'member.noconfirm.rest',
-          'pase.autopayment',
-          'pase.destination',
-          'pase.left',
-          'pase.state',
-          'about.chat.on',
         ],
       });
 
-      req.then(function(res) {
-        var settings = res.list;
+      req.then(
+        function(res) {
+          var settings = res.list;
 
-        console.log(settings);
+          console.log('Sendsay', settings);
+        },
+
+        function(err) {
+          console.log('Sendsay', err);
+        }
+      );
+    </script>
+
+    <script type="text/javascript" >
+      window.sendsayCookie = new Sendsay();
+
+      sendsayCookie.setSessionFromCookie();
+      sendsayCookie.setPolicyFromCookie();
+
+      var req = sendsayCookie.request({
+        action: 'sys.settings.get',
+
+        list: [
+          'about.id',
+        ],
       });
 
-      window.sendsay = sendsay;
+      req.then(
+        function(res) {
+          var settings = res.list;
+
+          console.log('Sendsay Cookie', settings);
+        },
+
+        function(err) {
+          console.log('Sendsay Cookie', err);
+        }
+      );
+    </script>
+
+
+    <script type="text/javascript" >
+      window.sendsayBasic = new Sendsay({ auth: JSON.parse(window.localStorage.getItem('auth')) });
+
+      var req = sendsayBasic.request({
+        action: 'sys.settings.get',
+
+        list: [
+          'about.id',
+        ],
+      });
+
+      req.then(
+        function(res) {
+          var settings = res.list;
+
+          console.log('Sendsay Basic', settings);
+        },
+
+        function(err) {
+          console.log('Sendsay Basic', err);
+        }
+      );
     </script>
   </body>
 </html>
