@@ -44,7 +44,7 @@ Unminified:
 <script type="text/javascript" src="https://image.sendsay.ru/app/js/v1/sendsay-api.js"></script>
 ```
 
-**NOTE!**
+## Node.js
 
 Node.js compatible. Install [the fetch polyfill](https://github.com/matthew-andrews/isomorphic-fetch):
 
@@ -52,7 +52,7 @@ Node.js compatible. Install [the fetch polyfill](https://github.com/matthew-andr
 yarn add isomorphic-fetch
 ```
 
-**DON'T FORGET TO APPLY THE POLYFILL:**
+**...DON'T FORGET TO APPLY THE POLYFILL:**
 
 ```javascript
 require('isomorphic-fetch'); // Apply the polyfill.
