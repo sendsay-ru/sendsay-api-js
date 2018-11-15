@@ -52,6 +52,19 @@ Node.js compatible. Install [the fetch polyfill](https://github.com/matthew-andr
 yarn add isomorphic-fetch
 ```
 
+**DON'T FORGET TO APPLY THE POLYFILL:**
+
+```javascript
+require('isomorphic-fetch'); // Apply the polyfill.
+const Sendsay = require('sendsay-api');
+
+const sendsay = new Sendsay({ apiKey: 'secret' });
+
+sendsay.request({ action: 'sys.settings.get', list: ['about.id']}).then(function(res) {
+  console.log(res.list['about.id']);
+})
+```
+
 ## Usage
 
 #### Authentication
