@@ -46,7 +46,7 @@ function getCookie(name) {
   return (document.cookie.match('(^|; )' + name + '=([^;]*)') || 0)[2];
 }
 
-var NO_AUTHENTICATION_REQUIRED_ACTIONS = ['ping', 'login', 'login.agses.challenge'];
+var NO_AUTHENTICATION_REQUIRED_ACTIONS = ['ping', 'login', 'login.agses.challenge', 'sys.account.create'];
 
 var Sendsay = function () {
   createClass(Sendsay, null, [{

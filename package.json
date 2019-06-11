@@ -1,6 +1,6 @@
 {
   "name": "sendsay-api",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "main": "dist/sendsay-api.cjs.js",
   "browser": "dist/sendsay-api.js",
   "license": "MIT",

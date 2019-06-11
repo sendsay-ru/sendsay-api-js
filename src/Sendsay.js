@@ -9,7 +9,8 @@ function getCookie(name) {
 const NO_AUTHENTICATION_REQUIRED_ACTIONS = [
   'ping',
   'login',
-  'login.agses.challenge'
+  'login.agses.challenge',
+  'sys.account.create',
 ];
 
 class Sendsay {
