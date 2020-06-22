@@ -1,0 +1,41 @@
+.header {
+    background-color: #f6f6f6;
+    display: flex;
+    flex-direction: column;
+    font-family: "SF Pro Text", sans-serif;
+
+    &__inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        padding: 9px 8px 8px 15px;
+    }
+
+    &-company {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    &-detail {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        &__logout {
+            margin-left: 26px;
+            margin-right: 19px;
+        }
+    }
+
+    &__logo {
+        margin-right: 20px;
+    }
+
+    &__name {
+        font-weight: 400;
+        font-size: 20px;
+        white-space: nowrap;
+    }
+}

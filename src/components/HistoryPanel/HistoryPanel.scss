@@ -1,0 +1,39 @@
+.history-panel{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 11px;
+    position: relative;
+    height: 50px;
+
+    &__requests {
+        display: flex;
+        flex: 1 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 10px 0 10px 4px;
+        scroll-behavior: smooth;
+
+        &::-webkit-scrollbar {
+            width: 1px;
+            height: 1px;
+        }
+
+        &:after {
+            content: "";
+            width: 15px;
+            height: 100%;
+            position: absolute;
+            right: 50px;
+            top: 0;
+            background: linear-gradient(269.98deg, #f6f6f6 0.06%, rgba(246, 246, 246, 0) 99.93%);
+        }
+    }
+
+    &__wrap-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        border-left: 1px solid rgba(0, 0, 0, 0.2);
+    }
+}

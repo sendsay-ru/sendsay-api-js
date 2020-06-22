@@ -1,0 +1,26 @@
+.auth-form-error {
+    display: flex;
+    padding: 10px 12px;
+    background: rgba(207, 44, 0, 0.1);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    color: #cf2c00;
+
+    &__block {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__title {
+        margin-bottom: 5px;
+    }
+
+    &__info {
+        opacity: 0.5;
+    }
+
+    &__icon {
+        align-self: flex-start;
+        margin-right: 10px;
+    }
+}

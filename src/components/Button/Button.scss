@@ -1,0 +1,90 @@
+.btn {
+    font-family: "SF Pro Text", sans-serif;
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    line-height: 1.5;
+    border-radius: 5px;
+    color: #fff;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    transition: 0.15s ease-in-out;
+
+    &__text {
+        &_hidden {
+            opacity: 0;
+        }
+    }
+
+    &_standart {
+        background: linear-gradient(180deg, #45a6ff 0%, #0055fb 100%), #c4c4c4;
+        padding: 8px 32px;
+        position: relative;
+
+        &:hover {
+            background: linear-gradient(0deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)),
+                linear-gradient(180deg, #45a6ff 0%, #0055fb 100%), #c4c4c4;
+        }
+
+        &:focus {
+            box-shadow: 0 0 0 2px rgba(69, 165, 255, 0.5);
+            border-radius: 7px;
+            outline: 0;
+        }
+
+        &:active {
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)),
+                linear-gradient(180deg, #45a6ff 0%, #0055fb 100%), #c4c4c4;
+        }
+
+        &:disabled {
+            background: linear-gradient(0deg, #c4c4c4, #c4c4c4), linear-gradient(180deg, #45a6ff 0%, #0055fb 100%);
+            cursor: not-allowed;
+        }
+    }
+
+    &_transparent {
+        color: initial;
+        background-color: transparent;
+        border: none;
+        padding: 7px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 7px;
+
+        &:hover {
+            color: #0055fb;
+        }
+
+        &:focus {
+            box-shadow: 0 0 0 2px rgba(69, 165, 255, 0.5);
+            outline: 0;
+            color: #0055fb;
+        }
+    }
+
+    &_transparent-with-icon {
+        color: initial;
+        background-color: transparent;
+        border: none;
+        padding: 3px 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 7px;
+
+        &:hover {
+            color: #0055fb;
+        }
+
+        &:focus {
+            box-shadow: 0 0 0 2px rgba(69, 165, 255, 0.5);
+            outline: 0;
+            color: #0055fb;
+        }
+    }
+}

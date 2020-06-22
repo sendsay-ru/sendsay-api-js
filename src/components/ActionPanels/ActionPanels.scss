@@ -1,0 +1,11 @@
+.action-panels {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 15px;
+
+    &__format-icon {
+        margin-right: 8px;
+    }
+}

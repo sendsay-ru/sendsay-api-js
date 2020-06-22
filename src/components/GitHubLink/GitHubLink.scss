@@ -1,0 +1,42 @@
+.github-link {
+    text-decoration: none;
+    color: #999;
+    animation-duration: 1.3s;
+    animation-fill-mode: both;
+    outline: 0;
+    border-radius: 5px;
+    padding: 5px;
+
+    &:focus {
+        box-shadow: 0 0 0 2px rgba(69, 165, 255, 0.5);
+    }
+
+    &:hover {
+        color: #1f8dd6;
+        animation-name: wobble;
+    }
+}
+
+@keyframes wobble {
+    0% {
+        transform: none;
+    }
+    15% {
+        transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -5deg);
+    }
+    30% {
+        transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 3deg);
+    }
+    45% {
+        transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -3deg);
+    }
+    60% {
+        transform: translate3d(2%, 0, 0) rotate3d(0, 0, 1, 2deg);
+    }
+    75% {
+        transform: translate3d(0%, 0, 0) rotate3d(0, 0, 1, -1deg);
+    }
+    100% {
+        transform: none;
+    }
+}
